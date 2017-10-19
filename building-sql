@@ -1,0 +1,187 @@
+DROP DATABASE IF  EXISTS building_mall;
+
+create database  if not exists building_mall DEFAULT CHARACTER SET utf8 ;
+
+use building_mall;
+
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2017/10/19 21:15:01                          */
+/*==============================================================*/
+
+
+drop table if exists product_info;
+
+drop table if exists t_building_category_children;
+
+drop table if exists t_building_category_parent;
+
+drop table if exists t_building_company_info;
+
+drop table if exists t_building_company_info_details;
+
+/*==============================================================*/
+/* Table: product_info                                          */
+/*==============================================================*/
+create table product_info
+(
+   id                   int not null auto_increment,
+   product_name         varchar(100),
+   product_price        varchar(50),
+   product_date         varchar(30),
+   tel_num              varchar(30),
+   tel_num1             varchar(30),
+   linkman              varchar(20),
+   children_id          int,
+   images               varchar(10240),
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: t_building_category_children                          */
+/*==============================================================*/
+create table t_building_category_children
+(
+   产品子类名称               varchar(100),
+   category_parent_id   int,
+   ex_field_1           varchar(10),
+   ex_field_2           varchar(10),
+   id                   int not null auto_increment,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: t_building_category_parent                            */
+/*==============================================================*/
+create table t_building_category_parent
+(
+   category_name        varchar(20),
+   ex_field_1           varchar(10),
+   ex_field_2           varchar(10),
+   id                   int not null auto_increment,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: t_building_company_info                               */
+/*==============================================================*/
+create table t_building_company_info
+(
+   id                   int not null auto_increment,
+   member_level         int(1),
+   children_f           int,
+   company_type         varchar(100),
+   company_model        varchar(50),
+   company_name         varchar(100) not null,
+   industry             varchar(30),
+   location             varchar(30),
+   company_site         varchar(30),
+   tel_num              varchar(30),
+   fax_num              varchar(30),
+   post_code            varchar(30),
+   net_path             varchar(100),
+   main_product         varchar(30),
+   link_man             varchar(30),
+   image                varchar(10240),
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: t_building_company_info_details                       */
+/*==============================================================*/
+create table t_building_company_info_details
+(
+   id                   int not null auto_increment,
+   registered_capital   varchar(30) not null,
+   regtime              varchar(30) not null,
+   regarea              varchar(100),
+   legal_person         varchar(100),
+   plant_area           varchar(30),
+   employees_num        varchar(30),
+   rd_num               varchar(30),
+   brand_name           varchar(100),
+   company_id           int,
+   children_id          int,
+   primary key (id)
+);
+
+alter table product_info add constraint FK_Reference_4 foreign key (children_id)
+      references t_building_category_children (id) on delete restrict on update restrict;
+
+alter table t_building_category_children add constraint FK_parent_children_r foreign key (category_parent_id)
+      references t_building_category_parent (id) on delete restrict on update restrict;
+
+alter table t_building_company_info add constraint FK_Reference_2 foreign key (children_f)
+      references t_building_category_children (id) on delete restrict on update restrict;
+
+alter table t_building_company_info_details add constraint FK_Reference_3 foreign key (company_id)
+      references t_building_company_info (id) on delete restrict on update restrict;
+
+
+
+/*==============================================================*/
+/* insert demo value to t_building_category_parent              */
+/*==============================================================*/
+
+INSERT INTO t_building_category_parent VALUES ("门窗", NULL, NULL,NULL);
+INSERT INTO t_building_category_parent VALUES ("厨柜厨具", NULL, NULL,NULL);
+INSERT INTO t_building_category_parent VALUES ("洁具", NULL, NULL,NULL);
+INSERT INTO t_building_category_parent VALUES ("地板", NULL, NULL,NULL);
+INSERT INTO t_building_category_parent VALUES ("涂料", NULL, NULL,NULL);
+INSERT INTO t_building_category_parent VALUES ("吊顶", NULL, NULL,NULL);
+INSERT INTO t_building_category_parent VALUES ("陶瓷", NULL, NULL,NULL);
+
+
+/*==============================================================*/
+/* insert demo value to t_building_category_children            */
+/*==============================================================*/
+
+INSERT INTO t_building_category_children VALUES ("实木门",1, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("复合门",1, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("钢木门",1, NULL, NULL,NULL);
+
+
+INSERT INTO t_building_category_children VALUES ("厨柜",2, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("厨房电器",2, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("整体厨房",2, NULL, NULL,NULL);
+
+
+INSERT INTO t_building_category_children VALUES ("实木地板",3, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("强化地板",3, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("复合地板",3, NULL, NULL,NULL);
+
+
+INSERT INTO t_building_category_children VALUES ("建筑涂料",4, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("水性漆",4, NULL, NULL,NULL);	
+INSERT INTO t_building_category_children VALUES ("防腐涂料",4, NULL, NULL,NULL);
+
+
+/*==============================================================*/
+/* insert demo value to t_building_company_info                 */
+/*==============================================================*/
+
+INSERT INTO t_building_company_info VALUES (NULL, 1, 1,"其他有限责任公司",
+"经销批发", "重庆荣升汽车配件制造有限公司","门窗 实木门","重庆 重庆 重庆市","双凤桥街道尚科路",
+"023-8082541","023-8082541","401121","http://www.jiancai58.com/rong",
+"汽车零部件，摩托车零部件，三轮摩托车","李玉玲"," " );
+
+
+/*==============================================================*/
+/* insert demo value to t_building_company_info_details         */
+/*==============================================================*/
+
+
+INSERT INTO t_building_company_info_details VALUES (NULL,"10 万","2001-11-15",
+"重庆市渝北区双凤桥街道尚科路5号","罗辛","1000 （平方米）","101 - 200 人","51 - 60 人",
+"福田五星，宗申，五征，力帆",1,1);
+
+
+/*==============================================================*/
+/* insert demo value to product_info                            */
+/*==============================================================*/
+
+INSERT INTO product_info VALUES (NULL,"恒成强化门HC952","1380 元", "2016-12-10 9:23:28",
+"15857952274","0579-87615588","陈部长", 1," ");
+
+
+
