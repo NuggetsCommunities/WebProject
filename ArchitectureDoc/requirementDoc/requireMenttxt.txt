@@ -76,6 +76,7 @@ http://www.jiancai58.com/
 		11.cpyd_annual_sale_volume   年营业额
 		12.cpyd_annual_import		年进口额
 		13.cpyd_annual_export		年出口额
+		14.cpyd_f_cpy_id			公司外键 外建指引建材分类id  ctg_id
 		
 		
 	
