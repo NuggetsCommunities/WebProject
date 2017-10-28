@@ -1,0 +1,86 @@
+version 1.0.0
+
+第一版本为了简单起见，搭建一个建议的数据类型，主要是熟悉前后台技术框架
+
+暂不考虑数据库优化，性能，还有架构的合理性，等1.0.0 整体完成后然后再进行各部分的优化
+
+数据参考网站网址：
+http://www.jiancai58.com/
+
+
+1. 建材分类
+	example: 首页 >> 建材行业供应分类 >> 门窗 >> 复合门
+
+	这是一个树状结构，数据库建标需要建立多层级结构
+	
+	目前hard code 建筑类型层数有且只有3层。
+	
+	表名： t_building_mall_category  建材分类表 
+	1.  ctg_id    主键自增
+	2.  ctg_name  类别名称
+	3.  ctg_fid   父id，也就是属于哪个父类别，如果为顶层则fid = 0
+	4.  ctg_level  属于哪一级别的标志，int 1 2 3
+	
+2. 建材商品
+
+	页面展览的主要信息之一，所以非常重要。
+	
+	表名： t_building_production 建材商品表
+	1.prd_id 					主键自增
+	2.prd_name 					产品名字
+	3.prd_f_cpy_id				发布公司   外建指引公司id-->cpy_id
+	4.prd_f_ctg_id                	产品分类   外建指引建材分类id  ctg_id
+	5.prd_publish_date				发布日期
+	6.prd_tel_num					手机号码
+	7.prd_tel_num1					座机号码
+	8.prd_link_man					联系人
+	9.prd_qq_num					qq号
+	10. prd_pic_link				图片地址
+	11.prd_details 				产品详情
+
+3.建材公司
+
+	页面展示公司信息的作用
+	
+	1.表名: t_building_company  建材公司表
+		1.cpy_id				主键自增
+		2.cpy_name					公司名称
+		3.cpy_type				公司类型
+		4.cpy_member_level				会员级别
+		5.cpy_model				公司模式
+		6.cpy_f_ctg_id					(主营行业)产品分类   外建指引建材分类id  ctg_id
+		7.cpy_location					公司所在地
+		8.cpy_location_deltails			详细地址
+		9.cpy_zip_code					邮政编码
+		10.cpy_tel_num				企业电话
+		11.cpy_tel_num1				企业电话1
+		12.cpy_link_man				联系人	
+		13.cpy_fax_num				企业传真
+		14.cpy_link					企业店铺网址
+		15.cpy_details				企业简介
+		16.cpy_pic_link				企业图片链接
+		
+	
+	
+	2.表名: t_building_company_details  建材公司信息详细表
+		1.cpyd_id				主键自增
+		2.cpyd_reg_capital			注册资本
+		3.cpyd_set_up_time			成立时间
+		4.cpyd_reg_loc				注册地点
+		5.cpyd_legal_person			法人代表
+		6.cpyd_plant_area			厂房面积
+		7.cpyd_emp_num				员工人数
+		8.cpyd_dev_emp_num			研发部门人数
+		9.cpyd_brands				品牌名称
+		10.cpyd_mouth_out			月产量
+		11.cpyd_annual_sale_volume   年营业额
+		12.cpyd_annual_import		年进口额
+		13.cpyd_annual_export		年出口额
+		
+		
+	
+	
+
+	
+
+
