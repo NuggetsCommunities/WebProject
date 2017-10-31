@@ -5,7 +5,7 @@ version 1.0.0
 暂不考虑数据库优化，性能，还有架构的合理性，等1.0.0 整体完成后然后再进行各部分的优化
 
 数据参考网站网址：
-http://www.jiancai58.com/
+http://www.daminggong.com/mall
 
 
 1. 建材分类
@@ -21,6 +21,17 @@ http://www.jiancai58.com/
 	3.  ctg_fid   父id，也就是属于哪个父类别，如果为顶层则fid = 0
 	4.  ctg_level  属于哪一级别的标志，int 1 2 3
 	
+1.1 建材品牌
+
+	表名： t_building_mall_brands  建材品牌表
+	
+	1. brd_id  主键自增
+	2. brd_name  品牌名称
+	3. brd_pic_link 品牌图片地址
+	4. brd_f_ctg_id  品牌属于类型id
+	5. brd_like_num  关注数量
+	
+	
 2. 建材商品
 
 	页面展览的主要信息之一，所以非常重要。
@@ -28,55 +39,80 @@ http://www.jiancai58.com/
 	表名： t_building_production 建材商品表
 	1.prd_id 					主键自增
 	2.prd_name 					产品名字
-	3.prd_f_cpy_id				发布公司   外建指引公司id-->cpy_id
-	4.prd_f_ctg_id                	产品分类   外建指引建材分类id  ctg_id
-	5.prd_publish_date				发布日期
-	6.prd_tel_num					手机号码
-	7.prd_tel_num1					座机号码
-	8.prd_link_man					联系人
-	9.prd_qq_num					qq号
-	10. prd_pic_link				图片地址
+	3.prd_f_store_id			发布商铺   外建指引建材商铺id-->store_id
+	4.prd_f_ctg_id              产品分类   外建指引建材分类id  ctg_id
+	5.prd_f_brd_id				产品品牌   外建指引建材品牌id  brd_id 
+	6.prd_market_price			产品市场价
+	7.prd_shop_price			产品商场价
+	8.prd_grade					商品评分
+	9.prd_stock					商品库存 
+	10. prd_pic_link			图片地址
 	11.prd_details 				产品详情
+	12.prd_freight				产品运费
+	
+2.1 商品评价
 
-3.建材公司
+	表名： t_building_production_appraise商品评价表
+	1.aps_id				主键自增
+	2.aps_levle				评论级别（好评，中评，差评）
+	3.aps_time 				评论时间
+	4.aps_user_id			评论的用户
+	5.aps_content			评论内容
+	6.aps_pic_link			评论图片地址
+	7.aps_deal_id			交易的细节
+	8.aps_f_prd_id			属于哪个产品的评价
+	
+2.2 购买咨询
+
+	表名： t_building_production_consulting产品咨询
+	1.cslt_id		 主键自增
+	2.cslt_question	 咨询问题
+	3.clst_quester   咨询人
+	4.cslt_anwser    咨询回答
+	5.cslt_anserner  回答人
+	6.cslt_f_category_id 问题分类
+	7.cslt_f_prd_id		属于哪个产品的问题
+	
+	
+2.2.1 咨询问题分类（也可以使用数据字典）
+	表名： t_building_production_consulting_category 产品咨询分类
+	1. cslt_f_category_id  主键自增
+	2. cslt_f_category_id  分类名称
+	
+	
+2.3 销售记录（应该由购买记录生成，service add, 产品页 只是get 数据）
+	
+	表名：t_building_production_deal_logs 交易记录
+	1.deal_id	 		主键自增
+	2.deal_user_id		买家
+	3.deal_price		购买价
+	4.deal_activity		活动
+	5.deal_number		购买数量
+	6.deal_time			购买时间
+	7.deal_f_prd_id		所属商品
+
+
+3.建材商铺
 
 	页面展示公司信息的作用
 	
-	1.表名: t_building_company  建材公司表
-		1.cpy_id				主键自增
-		2.cpy_name					公司名称
-		3.cpy_type				公司类型
-		4.cpy_member_level				会员级别
-		5.cpy_model				公司模式
-		6.cpy_f_ctg_id					(主营行业)产品分类   外建指引建材分类id  ctg_id
-		7.cpy_location					公司所在地
-		8.cpy_location_deltails			详细地址
-		9.cpy_zip_code					邮政编码
-		10.cpy_tel_num				企业电话
-		11.cpy_tel_num1				企业电话1
-		12.cpy_link_man				联系人	
-		13.cpy_fax_num				企业传真
-		14.cpy_link					企业店铺网址
-		15.cpy_details				企业简介
-		16.cpy_pic_link				企业图片链接
+	1.表名: t_building_store  建材商铺表
+		1.store_id						主键自增
+		2.store_name					商铺名称
+		4.store_member_level			会员级别
+		6.store_f_ctg_id				(主营行业)产品分类   外建指引建材分类id  ctg_id
+		7.store_location				公司所在地
+		8.store_location_deltails		详细地址
+		9.store_zip_code				邮政编码
+		10.store_tel_num				企业电话
+		11.store_tel_num1				企业电话1
+		12.store_link_man				联系人	
+		13.store_fax_num				企业传真
+		14.store_link					企业店铺网址
+		15.store_details				企业简介
+		16.store_pic_link				企业图片链接
 		
-	
-	
-	2.表名: t_building_company_details  建材公司信息详细表
-		1.cpyd_id				主键自增
-		2.cpyd_reg_capital			注册资本
-		3.cpyd_set_up_time			成立时间
-		4.cpyd_reg_loc				注册地点
-		5.cpyd_legal_person			法人代表
-		6.cpyd_plant_area			厂房面积
-		7.cpyd_emp_num				员工人数
-		8.cpyd_dev_emp_num			研发部门人数
-		9.cpyd_brands				品牌名称
-		10.cpyd_mouth_out			月产量
-		11.cpyd_annual_sale_volume   年营业额
-		12.cpyd_annual_import		年进口额
-		13.cpyd_annual_export		年出口额
-		14.cpyd_f_cpy_id			公司外键 外建指引建材分类id  ctg_id
+
 		
 		
 	
