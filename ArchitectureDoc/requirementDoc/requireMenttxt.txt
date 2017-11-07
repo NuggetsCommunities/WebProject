@@ -49,10 +49,11 @@ http://www.daminggong.com/mall
 	10. prd_pic_link			图片地址
 	11.prd_details 				产品详情
 	12.prd_freight				产品运费
+	13.prd_min_del_num			产品起购数量
 	
 2.1 商品评价
 
-	表名： t_building_production_appraise商品评价表
+	表名： t_building_production_appraise 商品评价表
 	1.aps_id				主键自增
 	2.aps_levle				评论级别（好评，中评，差评）
 	3.aps_time 				评论时间
@@ -64,7 +65,7 @@ http://www.daminggong.com/mall
 	
 2.2 购买咨询
 
-	表名： t_building_production_consulting产品咨询
+	表名： t_building_production_consulting 产品咨询
 	1.cslt_id		 主键自增
 	2.cslt_question	 咨询问题
 	3.clst_quester   咨询人
@@ -82,7 +83,7 @@ http://www.daminggong.com/mall
 	
 2.3 销售记录（应该由购买记录生成，service add, 产品页 只是get 数据）
 	
-	表名：t_building_production_deal_logs 交易记录
+	表名： t_building_production_deal_logs 交易记录
 	1.deal_id	 		主键自增
 	2.deal_user_id		买家
 	3.deal_price		购买价
@@ -139,6 +140,7 @@ http://www.daminggong.com/mall
 		6.usf_true_name		真实姓名
 		7.usf_true_id		真实身份证号码
 		8.usf_f_user_id		用户表id
+		
 	4.1.2用户收货地址
 		t_building_mall_user_location
 		

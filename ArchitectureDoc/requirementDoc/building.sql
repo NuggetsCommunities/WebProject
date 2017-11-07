@@ -6,7 +6,7 @@ create database if not exists building_mall default charset utf8 COLLATE utf8_ge
 
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/11/7 21:52:02                           */
+/* Created on:     2017/11/7 22:23:54                           */
 /*==============================================================*/
 
 
@@ -123,6 +123,7 @@ create table t_building_production
    prd_details          varchar(1000),
    prd_freight          double,
    prd_f_ctg_id         int(10),
+   prd_min_del_num      int,
    primary key (prd_id)
 );
 
