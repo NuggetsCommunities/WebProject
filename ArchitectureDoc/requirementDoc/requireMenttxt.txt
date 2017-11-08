@@ -28,7 +28,6 @@ http://www.daminggong.com/mall
 	1. brd_id  主键自增
 	2. brd_name  品牌名称
 	3. brd_pic_link 品牌图片地址
-	4. brd_f_ctg_id  品牌属于类型id
 	5. brd_like_num  关注数量
 	
 	

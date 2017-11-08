@@ -6,7 +6,7 @@ create database if not exists building_mall default charset utf8 COLLATE utf8_ge
 
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/11/7 22:23:54                           */
+/* Created on:     2017/11/8 21:27:45                           */
 /*==============================================================*/
 
 
@@ -38,7 +38,6 @@ create table t_building_mall_brands
    brd_id               int(10) not null auto_increment,
    brd_name             varchar(50),
    brd_pic_link         varchar(200),
-   brd_f_ctg_id         int(10),
    brd_like_num         int(10),
    primary key (brd_id)
 );
@@ -180,8 +179,7 @@ create table t_building_store
 (
    store_id             int(10) not null auto_increment,
    store_name           varchar(100) not null,
-   store_member_level   boolean not null,
-   store_f_ctg_id       int(10),
+   store_member_level   int(2) not null,
    store_location       varchar(100) not null,
    store_location_deltails varchar(100) not null,
    store_zip_code       varchar(20),
@@ -195,17 +193,12 @@ create table t_building_store
    primary key (store_id)
 );
 
-alter table t_building_mall_brands add constraint FK_Reference_1 foreign key (brd_f_ctg_id)
-      references t_building_mall_category (ctg_id) on delete restrict on update restrict;
-
 alter table t_building_mall_user_location add constraint FK_Reference_3 foreign key (ult_f_user_id)
       references t_building_mall_user (user_id) on delete restrict on update restrict;
 
 alter table t_building_mall_user_safe add constraint FK_Reference_2 foreign key (usf_f_user_id)
       references t_building_mall_user (user_id) on delete restrict on update restrict;
 
-alter table t_building_production add constraint FK_brands_production_ref foreign key (prd_f_brd_id)
-      references t_building_mall_brands (brd_id) on delete restrict on update restrict;
 
 alter table t_building_production add constraint FK_category_production_ref foreign key (prd_f_ctg_id)
       references t_building_mall_category (ctg_id) on delete restrict on update restrict;
