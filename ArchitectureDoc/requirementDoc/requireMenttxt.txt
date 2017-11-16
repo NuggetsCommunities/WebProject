@@ -1,0 +1,164 @@
+version 1.0.0
+
+第一版本为了简单起见，搭建一个简易的数据类型，主要是熟悉前后台技术框架
+
+暂不考虑数据库优化，性能，还有架构的合理性，等1.0.0 整体完成后然后再进行各部分的优化
+
+数据参考网站网址：
+http://www.daminggong.com/mall
+
+
+1. 建材分类
+	example: 首页 >> 建材行业供应分类 >> 门窗 >> 复合门
+
+	这是一个树状结构，数据库建标需要建立多层级结构
+	
+	目前hard code 建筑类型层数有且只有3层。
+	
+	表名： t_building_mall_category  建材分类表 
+	1.  ctg_id    主键自增
+	2.  ctg_name  类别名称
+	3.  ctg_fid   父id，也就是属于哪个父类别，如果为顶层则fid = 0
+	4.  ctg_level  属于哪一级别的标志，int 1 2 3
+	
+1.1 建材品牌
+
+	表名： t_building_mall_brands  建材品牌表
+	
+	1. brd_id  主键自增
+	2. brd_name  品牌名称
+	3. brd_pic_link 品牌图片地址
+	5. brd_like_num  关注数量
+	
+	
+2. 建材商品
+
+	页面展览的主要信息之一，所以非常重要。
+	
+	表名： t_building_production 建材商品表
+	1.prd_id 					主键自增
+	2.prd_name 					产品名字
+	3.prd_f_store_id			发布商铺   外建指引建材商铺id-->store_id
+	4.prd_f_ctg_id              产品分类   外建指引建材分类id  ctg_id
+	5.prd_f_brd_id				产品品牌   外建指引建材品牌id  brd_id 
+	6.prd_market_price			产品市场价
+	7.prd_shop_price			产品商场价
+	8.prd_grade					商品评分
+	9.prd_stock					商品库存 
+	10. prd_pic_link			图片地址
+	11.prd_details 				产品详情
+	12.prd_freight				产品运费
+	13.prd_min_del_num			产品起购数量
+	
+2.1 商品评价
+
+	表名： t_building_production_appraise 商品评价表
+	1.aps_id				主键自增
+	2.aps_levle				评论级别（好评，中评，差评）
+	3.aps_time 				评论时间
+	4.aps_user_id			评论的用户
+	5.aps_content			评论内容
+	6.aps_pic_link			评论图片地址
+	7.aps_deal_id			交易的细节
+	8.aps_f_prd_id			属于哪个产品的评价
+	
+2.2 购买咨询
+
+	表名： t_building_production_consulting 产品咨询
+	1.cslt_id		 主键自增
+	2.cslt_question	 咨询问题
+	3.clst_quester   咨询人
+	4.cslt_anwser    咨询回答
+	5.cslt_anserner  回答人
+	6.cslt_f_category_id 问题分类
+	7.cslt_f_prd_id		属于哪个产品的问题
+	
+	
+2.2.1 咨询问题分类（也可以使用数据字典）
+	表名： t_building_production_consulting_category 产品咨询分类
+	1. cslt_f_category_id  主键自增
+	2. cslt_f_category_id  分类名称
+	
+	
+2.3 销售记录（应该由购买记录生成，service add, 产品页 只是get 数据）
+	
+	表名： t_building_production_deal_logs 交易记录
+	1.deal_id	 		主键自增
+	2.deal_user_id		买家
+	3.deal_price		购买价
+	4.deal_activity		活动
+	5.deal_number		购买数量
+	6.deal_time			购买时间
+	7.deal_f_prd_id		所属商品
+
+
+3.建材商铺
+
+	页面展示公司信息的作用
+	
+	1.表名: t_building_store  建材商铺表
+		1.store_id						主键自增
+		2.store_name					商铺名称
+		4.store_member_level			会员级别
+		6.store_f_ctg_id				(主营行业)产品分类   外建指引建材分类id  ctg_id
+		7.store_location				公司所在地
+		8.store_location_deltails		详细地址
+		9.store_zip_code				邮政编码
+		10.store_tel_num				企业电话
+		11.store_tel_num1				企业电话1
+		12.store_link_man				联系人	
+		13.store_fax_num				企业传真
+		14.store_link					企业店铺网址
+		15.store_details				企业简介
+		16.store_pic_link				企业图片链接
+		
+4. 用户与权限
+
+	4.1 用户表
+		t_building_mall_user
+		
+		1.user_id  主键自增
+		2.user_name 用户名称
+		3.user_pwd   用户密码
+		4.user_level  用户级别
+		5.user_credit	 用户信用
+		6.user_login_name  用户登录名
+		7.user_mick_name  用户昵称
+		8.user_sex			用户性别（男，女，保密）
+		9.user_birth_date   用户出生年月日
+		10.user_hobbit		用户爱好
+		
+	4.1.1 用户账号安全表
+		t_building_mall_user_safe
+		
+		1. usf_id		主键自增
+		2. usf_pwd   	用户密码
+		3. usf_email 	邮箱
+		4.usf_tell_num	手机
+		5.usf_dibet_pwd  支付密码
+		6.usf_true_name		真实姓名
+		7.usf_true_id		真实身份证号码
+		8.usf_f_user_id		用户表id
+		
+	4.1.2用户收货地址
+		t_building_mall_user_location
+		
+		1.ult_id			主键自增
+		2.ult_f_user_id		用户表id
+		3.ult_receiver_name	收货人
+		4.ult_location		所在地
+		5.ult_location_details 地址
+		6.ult_tell_num			电话号码
+		7.ult_tell_num1			固定电话
+		8.ult_email				邮箱地址
+		9.ult_is_defalt			是不是默认地址
+		
+
+		
+		
+	
+	
+
+	
+
+
