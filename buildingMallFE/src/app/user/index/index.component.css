@@ -1,0 +1,39 @@
+.logon-nav{
+    margin: 20px auto;
+    width: 100%;
+    height: 80px;
+    background-color: #FFF;
+    padding: 0px 180px 0px 180px;
+}
+.nav-img, .nav-register{
+    float: left
+}
+.logon-nav .nav-img{
+    margin-bottom: 10px;
+    height: 56px;
+    width: 500px;
+}
+.nav-register{
+    width: 500px;
+    height: 40px;
+    margin: 20px 0px 0px 200px;
+    
+}
+.nav-register img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.nav-register span{
+    font-size: 14px;
+    color: #AAA;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle
+}
+.logon-nav span a{
+    color: #06C;
+    font-weight: 600;
+    text-decoration: none;
+}

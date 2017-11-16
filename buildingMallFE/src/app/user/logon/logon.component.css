@@ -1,0 +1,16 @@
+.logon-content{
+    width: 100%;
+    margin: 0px center;
+    background-color: #FAFAFA;
+    border: 1px solid #E6E6E6;
+    padding: 0px 130px;
+}
+.content-input-logon{
+    position: absolute;
+    border: 1px solid red;
+    top:120px;
+    left: 700px;
+    height: 300px;
+    width: 300px;
+    margin-left: 100px;
+}
