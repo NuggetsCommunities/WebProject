@@ -1,9 +1,10 @@
-.logon-nav{
+
+ .logon-nav{
     margin: 20px auto;
     width: 100%;
     height: 80px;
     background-color: #FFF;
-    padding: 0px 180px 0px 180px;
+    /* padding: 0px 180px 0px 180px; */
 }
 .nav-img, .nav-register{
     float: left
@@ -11,7 +12,8 @@
 .logon-nav .nav-img{
     margin-bottom: 10px;
     height: 56px;
-    width: 500px;
+    width: 400px;
+    margin-left: 147px;
 }
 .nav-register{
     width: 500px;
@@ -36,4 +38,4 @@
     color: #06C;
     font-weight: 600;
     text-decoration: none;
-}
+} 
