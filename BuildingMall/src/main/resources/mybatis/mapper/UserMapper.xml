@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="com.materials.dao.UserDao"> 
+<mapper namespace="com.materials.dao.UserDao">
+
 	<resultMap id="user_map" type="com.materials.entity.User"> 
-		<id property="id" column="id" jdbcType="INTEGER"></id> 
-		<result property="name" column="name" jdbcType="VARCHAR"></result> 
+		<id property="id" column="user_id" jdbcType="INTEGER"/> 
+		<result property="name" column="user_name" jdbcType="VARCHAR"/>
+		<result property="password" column="user_pwd" jdbcType="VARCHAR"/> 
+		<result property="level" column="user_level" jdbcType="VARCHAR"/> 
+		<result property="credit" column="user_credit" jdbcType="VARCHAR"/> 
+		<result property="LoginName" column="user_login_name" jdbcType="VARCHAR"/> 
+		<result property="mickName" column="user_mick_name" jdbcType="VARCHAR"/> 
+		<result property="sex" column="user_sex" jdbcType="VARCHAR"/> 
+		<result property="birthDate" column="user_birth_date" jdbcType="DATE"/>
+		<result property="hobbit" column="user_hobbit" jdbcType="VARCHAR"/>   
 	</resultMap> 
+	
+	
 	<select id="getUsers" resultMap="user_map"> 
-		select * from user
+		select * from t_building_mall_user
 	</select>
+	
+	
+	<select id="getPassword" resultMap="user_map" parameterType="String" > 
+		select * from t_building_mall_user where user_name =#{name}
+	</select>
+	
  </mapper>

@@ -6,8 +6,12 @@ import com.materials.entity.User;
 /**
  * 
  * @author Allen
- * 2017Äê10ÔÂ18ÈÕÏÂÎç11:23:01
+ * 2017ï¿½ï¿½10ï¿½ï¿½18ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11:23:01
  */
 public interface UserDao {
 	public List<User> getUsers();
+	
+	//get pws from username
+	
+	public User getPassword(String name);
 }
